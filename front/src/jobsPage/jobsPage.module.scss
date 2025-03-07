@@ -1,6 +1,6 @@
 .main_jobs_Page{
     width: 1440px;
-    height: 1520px;
+    min-height: 1520px;
     background-color: #FBF8EC;
     padding-top: 0px;
     font-family: Rubik;
@@ -10,6 +10,7 @@
     flex-direction: column;
     box-sizing: border-box;
     box-shadow: 0 -7px 20px -10px rgba(34, 60, 80, 0.2) inset;
+    padding-bottom: 50px;
 }
 .jobs_card{
     max-width: 312px;
@@ -38,7 +39,7 @@
 }
 .sect_cards{
     width: 1208px;
-    height: 1140px;
+    min-height: 1140px;
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;
     row-gap: 30px;

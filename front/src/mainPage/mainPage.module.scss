@@ -1,5 +1,31 @@
 @import '../fonts.scss';
-
+.bot_stocks{
+    width: 1208px;
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-radius: 4px;
+    padding-top: 40px;
+}
+.bot_novelty{
+    width: 1208px;
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-radius: 4px;
+    padding-top: 40px;
+}
+.bot_earlier{
+    width: 1208px;
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-radius: 4px;
+    padding-top: 40px;
+}
 .sect_one{
     width: 1440px;
     height: 200px;
@@ -77,13 +103,6 @@
                     text-decoration: underline;
                 }
             }
-        }
-        .bot{
-            width: 1208px;
-            height: 349px;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
         }
     }
     .sect_three{

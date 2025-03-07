@@ -15,7 +15,7 @@ export let ProductInfo = [
         regularPrice: '50,50',
         cardPrice: '44,50',
         img: image0,
-        name: 'Г/Ц Блинчики с мясом вес, Россия',
+        name: 'Пенис',
         star1: fullStar,
         star2: fullStar,
         star3: emptyStar,
