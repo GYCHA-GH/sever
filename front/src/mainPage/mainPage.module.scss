@@ -1,7 +1,33 @@
 @import '../fonts.scss';
-
+.bot_stocks{
+    width: 1208px;
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-radius: 4px;
+    padding-top: 40px;
+}
+.bot_novelty{
+    width: 1208px;
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-radius: 4px;
+    padding-top: 40px;
+}
+.bot_earlier{
+    width: 1208px;
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-radius: 4px;
+    padding-top: 40px;
+}
 .sect_one{
-    width: 100%;
+    width: 1440px;
     height: 200px;
     background-image: url(./img/background.png);
     background-position: center;
@@ -25,7 +51,7 @@
     }
 }
 .main{
-    width: 100%;
+    width: 1440px;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -77,13 +103,6 @@
                     text-decoration: underline;
                 }
             }
-        }
-        .bot{
-            width: 1208px;
-            height: 349px;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
         }
     }
     .sect_three{
@@ -286,7 +305,75 @@
             justify-content: space-between;
             align-items: start;
             border-radius: 4px;
-            
+            .card{
+                width: 376px;
+                height: 420px;
+                display: flex;
+                justify-content: space-between;
+                align-items: start;
+                flex-direction: column;
+                background-color: #FFFFFF;
+                border-radius: 4px;
+                .image{
+                    img{
+                        border-top-left-radius: 4px;
+                        border-top-right-radius: 4px;
+                    }
+                    
+                }
+                .con{
+                    width: 356px;
+                    height: 238px;
+                    padding: 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                    flex-direction: column;
+                    >div{
+                        width: 356px;
+                        height: 185px;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: column;
+                    }
+                    .date{
+                        @include RubikXS;
+                        color: #8F8F8F;
+                    }
+                    .text{
+                        width: 356px;
+                        height: 157px;
+
+                        p:nth-of-type(1){
+                            @include RubikHeaderXS;
+                            color: #414141;
+                            margin-bottom: 10px;
+                        }
+                        p:nth-of-type(2){
+                            @include RubikS;
+                            color: #414141;
+                        }
+                    }
+                    .more{
+                        width: 150px;
+                        height: 40px;
+                        button{
+                            width: 150px;
+                            height: 40px;
+                            background-color: #E5FFDE;
+                            @include RubikS;
+                            border: none;
+                            color: #70C05B;
+                            cursor: pointer;
+                            border-radius: 4px;
+                        }
+                        button:hover{
+                            background-color: #70C05B;
+                            color: white;
+                        }
+                    }
+                }
+            }
         }
     }
 }

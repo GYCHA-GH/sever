@@ -15,59 +15,79 @@ import downArrow from './img/down_arrow.png'
 import Close from './img/close.png'
 import arrowLeft from './img/arrow_left.png'
 
-export default function Header(){
-    const [isUserLogged, setIsUserLogged] = useState(false)
-    const [userName, setUserName] = useState('')
-    const [catalogState, setCatalogState] = useState(false)
-    const [loginPopUpState, setLoginPopUpState] = useState(false)
+import RegistrationPopup from './RegistratonPopup'
 
-    const [onWhatPage, setOnWhatPage] = useState('')
+export default function Header(){
+    const [isUserLogged, setIsUserLogged] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [catalogState, setCatalogState] = useState(false);
+    const [loginPopUpState, setLoginPopUpState] = useState(false);
+
+    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+    const [onWhatPage, setOnWhatPage] = useState('');
 
     useEffect(()=>{
+        // Определяем текущую страницу
         if(document.URL.includes("favorite")){
-            setOnWhatPage('favorite')
+            setOnWhatPage('favorite');
         }
         else if(document.URL.includes("orders")){
-            setOnWhatPage('orders')
+            setOnWhatPage('orders');
         }
         else if(document.URL.includes("cart")){
-            setOnWhatPage('cart')
+            setOnWhatPage('cart');
         }
-    })
+
+        // Если хотим восстанавливать состояние пользователя при перезагрузке:
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Тут можно проверить валидность токена, запросить /api/me и т.д.
+            // Для примера просто считаем, что если токен есть, пользователь залогинен:
+            setIsUserLogged(true);
+            // Можно хранить имя в localStorage или запрашивать с сервера
+            // setUserName("Имя из localStorage или API");
+        }
+    }, []);
+
+    // Колбэк, который срабатывает после успешной регистрации
+    function handleRegisterSuccess(user) {
+        setIsUserLogged(true);
+        setUserName(user.name);
+    }
 
     function OpenCatalog(){
-        setCatalogState(true)
-        let catalog = document.getElementById("catalogWindow")
-        catalog.style.visibility = 'visible'
-        catalog.style.opacity = 1
-        catalog.style.top = '72px'
+        setCatalogState(true);
+        let catalog = document.getElementById("catalogWindow");
+        catalog.style.visibility = 'visible';
+        catalog.style.opacity = 1;
+        catalog.style.top = '72px';
     }
     function CloseCatalog(){
-        setCatalogState(false)
-        let catalog = document.getElementById("catalogWindow")
-        catalog.style.visibility = 'hidden'
-        catalog.style.opacity = 0
-        catalog.style.top = '0px'
+        setCatalogState(false);
+        let catalog = document.getElementById("catalogWindow");
+        catalog.style.visibility = 'hidden';
+        catalog.style.opacity = 0;
+        catalog.style.top = '0px';
     }
     
     function OpenLoginPopUp(){
-        setLoginPopUpState(true)
-        let popup = document.getElementById('loginPopUp')
-        popup.style.visibility = 'visible'
-        popup.style.opacity = 1
+        setLoginPopUpState(true);
+        let popup = document.getElementById('loginPopUp');
+        popup.style.visibility = 'visible';
+        popup.style.opacity = 1;
     }
     function CloseLoginPopUp(){
-        setLoginPopUpState(false)
-        let popup = document.getElementById('loginPopUp')
-        popup.style.visibility = 'hidden'
-        popup.style.opacity = 0
+        setLoginPopUpState(false);
+        let popup = document.getElementById('loginPopUp');
+        popup.style.visibility = 'hidden';
+        popup.style.opacity = 0;
     }
 
     function SetBorderToInput(input){
-        document.getElementById(input).style.border = '1px solid #70C05B'
+        document.getElementById(input).style.border = '1px solid #70C05B';
     }
     function RemoveBorderFromInput(input){
-        document.getElementById(input).style.border = '1px solid #BFBFBF'
+        document.getElementById(input).style.border = '1px solid #BFBFBF';
     }
 
     return(
@@ -92,16 +112,16 @@ export default function Header(){
                     <div className={classes.right}>
                         <div className={classes.links}>
                             <a href='/favorite' className={classes.favorite}>
-                                <img src={onWhatPage == 'favorite' ? favorite_active : favorite} alt="" />
-                                <p className={onWhatPage == 'favorite' ? classes.active : null}>Избранное</p>
+                                <img src={onWhatPage === 'favorite' ? favorite_active : favorite} alt="" />
+                                <p className={onWhatPage === 'favorite' ? classes.active : null}>Избранное</p>
                             </a>
                             <a href='/orders' className={classes.orders}>
-                                <img src={onWhatPage == 'orders' ? orders_active : orders} alt="" />
-                                <p className={onWhatPage == 'orders' ? classes.active : null}>Заказы</p>
+                                <img src={onWhatPage === 'orders' ? orders_active : orders} alt="" />
+                                <p className={onWhatPage === 'orders' ? classes.active : null}>Заказы</p>
                             </a>
                             <a href='/cart' className={classes.cart}>
-                                <img src={onWhatPage == 'cart' ? cart_active : cart} alt="" />
-                                <p className={onWhatPage == 'cart' ? classes.active : null}>Корзина</p>
+                                <img src={onWhatPage === 'cart' ? cart_active : cart} alt="" />
+                                <p className={onWhatPage === 'cart' ? classes.active : null}>Корзина</p>
                             </a>
                         </div>
                         <div className={classes.account}>
@@ -118,6 +138,8 @@ export default function Header(){
                     </div>
                 </nav>
             </header>
+
+            {/* Каталог */}
             <div className={classes.catalog_menu} id='catalogWindow'>
                 <div className={classes.con}>
                     <div className={classes.links}>
@@ -143,10 +165,14 @@ export default function Header(){
                     </div>
                 </div>
             </div>
+
+            {/* Попап для логина */}
             <div className={classes.login_popup} id='loginPopUp'>
                 <div className={classes.window}>
                     <div className={classes.close_window}>
-                        <button type="button" onClick={loginPopUpState ? CloseLoginPopUp : OpenLoginPopUp}><img src={Close} alt="" /></button>
+                        <button type="button" onClick={loginPopUpState ? CloseLoginPopUp : OpenLoginPopUp}>
+                            <img src={Close} alt="" />
+                        </button>
                     </div>
                     <div className={classes.main}>
                         <div className={classes.title}>
@@ -156,8 +182,8 @@ export default function Header(){
                             <div className={classes.phone}>
                                 <label htmlFor=""><p>Телефон</p></label>
                                 <input type="tel" name="phone" id="phone" required 
-                                onBlur={() => RemoveBorderFromInput('phone')} 
-                                onFocus={() => SetBorderToInput('phone')}
+                                  onBlur={() => RemoveBorderFromInput('phone')} 
+                                  onFocus={() => SetBorderToInput('phone')}
                                 />
                             </div>
                             <div className={classes.submit}>
@@ -166,7 +192,7 @@ export default function Header(){
                         </form>
                         <div className={classes.other}>
                             <div className={classes.register}>
-                                <button type="button">Регистрация</button>
+                                <button type="button" onClick={() => setIsRegisterOpen(true)}>Регистрация</button>
                             </div>
                             <div className={classes.return} style={{display: 'none'}}>
                                 <img src={arrowLeft} alt="" />
@@ -179,6 +205,13 @@ export default function Header(){
                     </div>
                 </div>
             </div>
+
+            {/* Попап для регистрации */}
+            <RegistrationPopup
+                isOpen={isRegisterOpen}
+                onClose={() => setIsRegisterOpen(false)}
+                onRegisterSuccess={handleRegisterSuccess}
+            />
         </>
     )
 }

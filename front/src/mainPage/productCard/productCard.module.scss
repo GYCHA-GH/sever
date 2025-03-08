@@ -1,0 +1,124 @@
+@import '../../fonts.scss';
+
+.card{
+    width: 272px;
+    height: 349px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: column;
+    padding: 8px;
+    padding-top: 0px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 1px 2px 4px rgb(0, 0, 0, 0.1);
+    border-radius: 4px;
+    .image{
+        width: 272px;
+        height: 160px;
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        background-position: center;
+        position: relative;
+        right: 8px;
+        .discount{
+            height: 152px;
+            display: flex;
+            justify-content: start;
+            align-items: end;
+            margin-left: 10px;
+            p{
+                width: 56px;
+                height: 32px;
+                background-color: #FF6633;
+                border-radius: 4px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @include RubikS;
+                color: white;
+            }
+        }
+        .favorite{
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(243, 242, 241, 0.5);
+            margin-top: 8px;
+            margin-right: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            button{
+                background: none;
+                border: none;
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+            }
+            &:hover{
+                background-color: rgb(252, 213, 186, 0.5);
+            }
+            &.active{
+                background: none;
+                &:hover{
+                    background-color: #FCD5BA;
+                }
+            }
+        }
+    }
+    .price{
+        width: 256px;
+        height: 45px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .with_card{
+            p:nth-of-type(1){
+                @include RubikBoldM;
+            }
+            p:nth-of-type(2){
+                @include RubikXS;
+                color: #BFBFBF;
+            }
+        }
+        .regular{
+            p:nth-of-type(1){
+                @include RubikS;
+            }
+            p:nth-of-type(2){
+                @include RubikXS;
+                color: #BFBFBF;
+            }
+        }
+    }
+    .name{
+        @include RubikS;
+    }
+    .stars{
+        width: 96px;
+        height: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .cart button{
+        width: 256px;
+        height: 40px;
+        border: 1px solid #70C05B;
+        box-sizing: border-box;
+        border-radius: 4px;
+        background: none;
+        color: #70C05B;
+        @include RubikS;
+        cursor: pointer;
+    }
+    .cart button:hover{
+        color: white;
+        background-color: #FF6633;
+        border: none;
+    }
+}
