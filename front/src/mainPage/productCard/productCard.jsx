@@ -31,7 +31,8 @@ export default function ProductCard({ id, onsale, regularprice, cardprice, img, 
         </div>
       </div>
       <div className={classes.name}>
-        <p>{name}</p>
+        <a link={'/catalog/milk-cheese-eggs/maslo-prostokvashino'}>{name}</a>
+        
       </div>
       <div className={classes.stars}>
         {stars.map((star, index) => (

@@ -16,6 +16,8 @@ import doubleArrowLeft from './img/double_arrow_left.png'
 
 import { useEffect, useState } from 'react'
 
+import Card from '../../../mainPage/productCard/Card'
+
 export default function MilkCheeseEggs(){
     const [inStockState, setInStockState] = useState(false) 
     const [localProductState, setLocalProductState] = useState(false)
@@ -73,6 +75,12 @@ export default function MilkCheeseEggs(){
         document.getElementById("progress_bar").style.left = document.getElementById("priceSliderMin").value / 100 + '%'
         document.getElementById("progress_bar").style.right = 100 - document.getElementById("priceSliderMax").value / 100 + '%'
     }
+    useEffect(() => {
+            fetch("http://localhost:5000/articles")
+                .then((response) => response.json())
+                .then((data) => setArticles(data))
+                .catch((error) => console.error("Ошибка загрузки:", error));
+        }, []);
 
     return(
         <>
@@ -169,180 +177,37 @@ export default function MilkCheeseEggs(){
                                     </div>
                                     <div className={classes.main_sect} style={showMoreState ? {height: '1516px'} : {height: '738px'}}>
                                         <div className={classes.line}>
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={true}
-                                            regularPrice={'89,99'}
-                                            cardPrice={'69,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={'-50%'}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={true}
-                                            regularPrice={'89,99'}
-                                            cardPrice={'69,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={'-50%'}
-                                            />
+                                            <Card id={14}/>
+                                            <Card id={2}/>
+                                            <Card id={13}/>
                                         </div>
                                         <div className={classes.line}>
-                                            <ProductCard
-                                            id={0}
+                                        <ProductCard
+                                            id={8}
                                             onSale={false}
                                             regularPrice={''}
                                             cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
+                                            img={ProductInfo[8].img}
+                                            name={ProductInfo[8].name}
+                                            star1={ProductInfo[8].star1}
+                                            star2={ProductInfo[8].star2}
+                                            star3={ProductInfo[8].star3}
+                                            star4={ProductInfo[8].star4}
+                                            star5={ProductInfo[8].star5}
                                             discount={''}
                                             />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
+                                            <Card id={16}/>
+                                            <Card id={16}/>
                                         </div>
                                         <div className={classes.line} style={showMoreState ? {display: 'flex'} : {display: 'none'}}>
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
+                                            <Card id={13}/>
+                                            <Card id={1}/>
+                                            <Card id={13}/>
                                         </div>
                                         <div className={classes.line} style={showMoreState ? {display: 'flex'} : {display: 'none'}}>
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
-                                            <ProductCard
-                                            id={0}
-                                            onSale={false}
-                                            regularPrice={''}
-                                            cardPrice={'139,99'}
-                                            img={ProductInfo[0].img}
-                                            name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                            star1={ProductInfo[0].star1}
-                                            star2={ProductInfo[0].star2}
-                                            star3={ProductInfo[0].star3}
-                                            star4={ProductInfo[0].star4}
-                                            star5={ProductInfo[0].star5}
-                                            discount={''}
-                                            />
+                                            <Card id={1}/>
+                                            <Card id={13}/>
+                                            <Card id={1}/>
                                         </div>
                                     </div>
                                     <div className={classes.show_more} style={showMoreState ? {visibility: 'hidden'} : {visibility: 'visible'}}>

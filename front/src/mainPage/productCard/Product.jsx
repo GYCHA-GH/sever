@@ -40,7 +40,7 @@ export default function Product({ name, price, image_url, onSale = false }) {
         )}
       </div>
       <div className={classes.name}>
-        <p>{name}</p>
+        <a href={link}>{name}</a>
       </div>
       <div className={classes.cart}>
         <button type="button">

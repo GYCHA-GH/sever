@@ -6,6 +6,7 @@ import image0 from './arrayImg/blini.png'
 import image1 from './arrayImg/moloko.png'
 import image2 from './arrayImg/kolbasa.png'
 import image3 from './arrayImg/sosiski.png'
+import image4 from './arrayImg/cot.png'
 
 
 export let ProductInfo = [
@@ -119,6 +120,20 @@ export let ProductInfo = [
         star3: fullStar,
         star4: fullStar,
         star5: halfStar,
+        discount: '-50%'
+    },
+    {
+        id: 8,
+        onSale: false,
+        regularPrice: '50,50',
+        cardPrice: '192,99',
+        img: image4,
+        name: 'Масло ПРОСТОКВАШИНО 180г, Россия',
+        star1: fullStar,
+        star2: fullStar,
+        star3: emptyStar,
+        star4: emptyStar,
+        star5: emptyStar,
         discount: '-50%'
     },
 ]

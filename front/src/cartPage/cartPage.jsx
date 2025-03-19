@@ -1,177 +1,121 @@
-import classes from './cartPage.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
+import classes from "./cartPage.module.scss";
 
-import Header from '../header/header'
-import Footer from '../footer/footer'
+import Header from "../header/header";
+import Footer from "../footer/footer";
+import CartItem from "./cartItem/cartItem";
 
-import arrowRight from './img/arrow_right.png'
-import minus from './img/minus.png'
-import smile from './img/smile.png'
+import arrowRight from "./img/arrow_right.png";
+import smile from "./img/smile.png";
 
-import CartItem from './cartItem/cartItem'
-import item from './img/item.png'
+export default function CartPage() {
+  const [cartItems, setCartItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const discount = 8.01;
 
+  useEffect(() => {
+    document.title = "Корзина";
+    fetchCartItems();
+  }, []);
 
-export default function CartPage(){
-    const [getTotal, setTotal] = useState(258.1)
-    const [selectAll, setSelectAll] = useState(false)
-    const [discount, setDiscount] = useState(8.01)
-    let totalPrice = 0
-    let [itemAmount, setItemAmount] = useState(0)
-
-    const [switchState, setSwitchState] = useState(true)
-    
-    useEffect(()=>{
-        document.title = 'Корзина'
-        CheckTotal()
-        let items = document.getElementsByName('cart_item')
-        setItemAmount(items.length)
-
-        SetTotalPrice()
-    })
-
-    function SetTotalPrice(){
-        let items = document.getElementsByName('item_price')
-        for(let i = 0; i < items.length; i++){
-            console.log(parseFloat(items[i].innerHTML))
-            totalPrice += parseFloat(items[i].innerHTML)
-            console.log(totalPrice)
-            setTotal(totalPrice)
-        }
+  async function fetchCartItems() {
+    try {
+      const response = await fetch("http://localhost:5000/cart");
+      const data = await response.json();
+      console.log("Данные корзины:", data); // Отладочный вывод
+      setCartItems(data);
+    } catch (error) {
+      console.error("Ошибка загрузки корзины:", error);
     }
+  }
 
-    function SelectAll(){
-        setSelectAll(true)
-    }
+  useEffect(() => {
+    calculateTotal(cartItems);
+  }, [cartItems]);
 
-    function DeselectAll(){
-        setSelectAll(false)
-    }
+  function handleAmountChange(itemId, newAmount) {
+    const updatedItems = cartItems.map(item =>
+      item.id === itemId ? { ...item, amount: newAmount } : item
+    );
+    setCartItems(updatedItems);
+  }
 
-    function CheckTotal(){
-        // setTotal(parseFloat(document.getElementById('total_price').innerHTML))
-        // console.log(parseFloat(getTotal))
-    }
+  function calculateTotal(items) {
+    const totalSum = items.reduce((sum, item) => {
+      const price = item.cardprice || 0; // Исправлено имя свойства
+      const amount = item.amount || 0;
+      const discount = item.discount || 0;
+      return sum + price * amount * (1 - discount / 100);
+    }, 0);
+    setTotal(totalSum);
+  }
 
-    return(
-        <>
-            <Header/>
-            <main className={classes.main}>
-                <section className={classes.section}>
-                    <div className={classes.top}>
-                        <a href='/'>Главная</a>
-                        <img src={arrowRight} alt="" />
-                        <a href='/catalog'>Корзина</a>
-                    </div>
-                    <div className={classes.bot}>
-                        <div className={classes.title}>
-                            <p>Корзина</p>
-                            <div>
-                                <p>{itemAmount}</p>
-                            </div>
-                        </div>
-                        <div className={classes.general}>
-                            <div className={classes.items}>
-                                <div className={classes.select}>
-                                    <div className={classes.select_all}>
-                                        <button type="button" onClick={selectAll ? DeselectAll : SelectAll}><img src={minus} alt="" /></button>
-                                        <p>Выделить всё</p>
-                                    </div>
-                                    <div className={classes.delete}>
-                                        <p>Удалить выбранные</p>
-                                    </div>
-                                </div>
-                                <div className={classes.list}>
-                                    <CartItem
-                                    onSale={false}
-                                    image={item}
-                                    cardPrice={'44.50'}
-                                    regularPrice={'50.50'}
-                                    name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                    discount={0}
-                                    amount={2}
-                                    />
-                                    <CartItem
-                                    onSale={true}
-                                    image={item}
-                                    cardPrice={'44.50'}
-                                    regularPrice={'50.50'}
-                                    name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                    discount={10}
-                                    amount={2}
-                                    />
-                                    <CartItem
-                                    onSale={false}
-                                    image={item}
-                                    cardPrice={'44.50'}
-                                    regularPrice={'50.50'}
-                                    name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                    discount={0}
-                                    amount={3}
-                                    />
-                                    <CartItem
-                                    onSale={false}
-                                    image={item}
-                                    cardPrice={'44.50'}
-                                    regularPrice={'50.50'}
-                                    name={'Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»'}
-                                    discount={0}
-                                    amount={2}
-                                    />
-                                </div>
-                            </div>
-                            <div className={classes.payment}>
-                                <div className={classes.withdraw}>
-                                    <div className={classes.switch}>
-                                        <div className={classes.body} style={switchState ? {backgroundColor: '#70C05B'} : {backgroundColor: '#8F8F8F'}} onClick={switchState ? ()=>setSwitchState(false) : ()=>setSwitchState(true)}>
-                                            <div style={switchState ? {transform: 'translate(11px)'} : {transform: 'translate(-11px)'}}></div>
-                                        </div>
-                                        <div className={classes.text}>
-                                            <p>Списать 200 ₽</p>
-                                        </div>
-                                    </div>
-                                    <div className={classes.card_fund}>
-                                        <p>На карте накоплено 200 ₽</p>
-                                    </div>
-                                </div>
-                                <div className={classes.line}>
-
-                                </div>
-                                <div className={classes.price_math}>
-                                    <div>
-                                        <p>3 товара</p>
-                                        <p>{parseFloat(getTotal).toFixed(2)} ₽</p>
-                                    </div>
-                                    <div>
-                                        <p>Скидка</p>
-                                        <p>-{discount} ₽</p>
-                                    </div>
-                                </div>
-                                <div className={classes.line}>
-
-                                </div>
-                                <div className={classes.total}>
-                                    <div className={classes.total_price}>
-                                        <p>Итог</p>
-                                        <p id='total_price'>{(getTotal - discount).toFixed(2)} ₽</p>
-                                    </div>
-                                    <div className={classes.bonuses}>
-                                        <img src={smile} alt="" />
-                                        <p>Вы получаете <span>100 бонусов</span></p>
-                                    </div>
-                                </div>
-                                <div className={classes.submit}>
-                                    <div className={classes.warning} style={parseFloat(getTotal - discount) >= 1000 ? {display: 'none'} : null}>
-                                        <p>Минимальная сумма заказа 1000р</p>
-                                    </div>
-                                    <button type="submit" className={parseFloat(getTotal - discount) >= 1000 ? classes.active : null}>Оформить заказ</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            <Footer/>
-        </>
-    )
+  return (
+    <>
+      <Header />
+      <main className={classes.main}>
+        <section className={classes.section}>
+          <div className={classes.top}>
+            <a href="/">Главная</a>
+            <img src={arrowRight} alt="" />
+            <a href="/catalog">Корзина</a>
+          </div>
+          <div className={classes.bot}>
+            <div className={classes.title}>
+              <p>Корзина</p>
+              <div>
+                <p>{cartItems.length}</p>
+              </div>
+            </div>
+            <div className={classes.general}>
+              <div className={classes.items}>
+                <div className={classes.list}>
+                  {cartItems.map((item) => (
+                    <CartItem
+                      key={item.id}
+                      isSelected={false}
+                      onSale={item.discount > 0}
+                      image={item.image}
+                      cardPrice={item.cardprice} // Исправлено имя свойства
+                      regularPrice={item.regularprice}
+                      name={item.name}
+                      discount={item.discount}
+                      amount={item.amount}
+                      onAmountChange={(newAmount) => handleAmountChange(item.id, newAmount)}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className={classes.payment}>
+                <div className={classes.price_math}>
+                  <div>
+                    <p>{cartItems.length} товаров</p>
+                    <p>{total.toFixed(2)} ₽</p>
+                  </div>
+                  <div>
+                    <p>Скидка</p>
+                    <p>-{discount} ₽</p>
+                  </div>
+                </div>
+                <div className={classes.total}>
+                  <div className={classes.total_price}>
+                    <p>Итог</p>
+                    <p>{isNaN(total - discount) ? "Ошибка" : (total - discount).toFixed(2)} ₽</p>
+                  </div>
+                  <div className={classes.bonuses}>
+                    <img src={smile} alt="" />
+                    <p>Вы получаете <span>100 бонусов</span></p>
+                  </div>
+                </div>
+                <div className={classes.submit}>
+                  <button type="submit">Оформить заказ</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
 }

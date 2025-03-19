@@ -50,8 +50,32 @@
         }
     }
 }
+.sect_one{
+    width: 100%;
+    height: 200px;
+    background-image: url(./img/background.png);
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .con{
+        width: 1208px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .image{
+            height: 200px;
+        }
+        .text{
+            width: 751px;
+            @include RubikHeaderL;
+            color: #414141;
+        }
+    }
+}
 .main{
-    width: 1440px;
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
